@@ -1,4 +1,3 @@
-%%writefile src/variance_analysis.py
 """
 src/variance_analysis.py
 
