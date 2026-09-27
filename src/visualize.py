@@ -69,3 +69,40 @@ def plot_prism_batch(original_images, prism_maps, titles=None, save_path=None):
         plt.savefig(save_path, dpi=150, bbox_inches="tight")
         print(f"Saved to {save_path}")
     plt.show()
+    
+    
+def plot_prism_vs_gradcam(original_images, prism_maps, gradcam_overlays, titles=None, save_path=None):
+    """
+    Side-by-side comparison: original | Grad-CAM | PRISM
+    (mirrors the paper's Figures 6, 7, 11 layout)
+
+    original_images: list of PIL.Image
+    prism_maps: np.ndarray (batch_size, 3, H, W) from compute_prism()
+    gradcam_overlays: list of np.ndarray (H, W, 3) uint8, one per image
+    """
+    n = len(original_images)
+    fig, axes = plt.subplots(3, n, figsize=(4 * n, 12))
+    if n == 1:
+        axes = axes.reshape(3, 1)
+
+    for i in range(n):
+        orig = original_images[i]
+        prism_overlay = overlay_prism_on_image(orig, prism_maps[i])
+
+        axes[0, i].imshow(orig)
+        axes[0, i].axis("off")
+        axes[0, i].set_title(titles[i] if titles else f"Image {i+1}")
+
+        axes[1, i].imshow(gradcam_overlays[i])
+        axes[1, i].axis("off")
+        axes[1, i].set_title("Grad-CAM")
+
+        axes[2, i].imshow(prism_overlay)
+        axes[2, i].axis("off")
+        axes[2, i].set_title("PRISM")
+
+    plt.tight_layout()
+    if save_path:
+        plt.savefig(save_path, dpi=150, bbox_inches="tight")
+        print(f"Saved to {save_path}")
+    plt.show()
