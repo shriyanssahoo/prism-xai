@@ -6,8 +6,6 @@ Replication of the key experiments from:
 
 This project is Phase 1 (Replication) of an Explainable AI (XAI) course project. It re-implements the **PRISM (Principal Image Sections Mapping)** method from scratch, applies it to a pretrained VGG-16, and reproduces three of the paper's main results.
 
-**Team:** _<add team member names here>_
-
 ---
 
 ## 1. What is PRISM?
